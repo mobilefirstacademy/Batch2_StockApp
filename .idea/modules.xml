@@ -2,43 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CleanArchitectureShowcase.iml" filepath="$PROJECT_DIR$/.idea/modules/CleanArchitectureShowcase.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/CleanArchitectureShowcase.features.iml" filepath="$PROJECT_DIR$/.idea/modules/features/CleanArchitectureShowcase.features.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/CleanArchitectureShowcase.features.home.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/CleanArchitectureShowcase.features.home.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/CleanArchitectureShowcase.features.home.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/CleanArchitectureShowcase.features.home.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.main.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/CleanArchitectureShowcase.features.home.main.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/CleanArchitectureShowcase.features.home.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/presentation/CleanArchitectureShowcase.features.home.presentation.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/presentation/CleanArchitectureShowcase.features.home.presentation.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/presentation/CleanArchitectureShowcase.features.home.presentation.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/presentation/CleanArchitectureShowcase.features.home.presentation.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/presentation/CleanArchitectureShowcase.features.home.presentation.main.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/presentation/CleanArchitectureShowcase.features.home.presentation.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/presentation/CleanArchitectureShowcase.features.home.presentation.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/presentation/CleanArchitectureShowcase.features.home.presentation.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/CleanArchitectureShowcase.features.home.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/CleanArchitectureShowcase.features.home.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/letsgo/CleanArchitectureShowcase.features.letsgo.iml" filepath="$PROJECT_DIR$/.idea/modules/features/letsgo/CleanArchitectureShowcase.features.letsgo.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/letsgo/CleanArchitectureShowcase.features.letsgo.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/letsgo/CleanArchitectureShowcase.features.letsgo.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/letsgo/CleanArchitectureShowcase.features.letsgo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/features/letsgo/CleanArchitectureShowcase.features.letsgo.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/letsgo/CleanArchitectureShowcase.features.letsgo.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/features/letsgo/CleanArchitectureShowcase.features.letsgo.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/home/CleanArchitectureShowcase.home.iml" filepath="$PROJECT_DIR$/.idea/modules/home/CleanArchitectureShowcase.home.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libs/CleanArchitectureShowcase.libs.iml" filepath="$PROJECT_DIR$/.idea/modules/libs/CleanArchitectureShowcase.libs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.iml" filepath="$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.unitTest.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.main.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.main.iml" />
->>>>>>> 4c974e5ad493933db7d215c46340c870e052ddf3
     </modules>
   </component>
 </project>

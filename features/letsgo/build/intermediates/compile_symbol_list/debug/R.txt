@@ -1,4 +1,0 @@
-int id text 0x0
-int layout fragment_lets_go 0x0
-int string hello_blank_fragment 0x0
-int string lets_start 0x0
