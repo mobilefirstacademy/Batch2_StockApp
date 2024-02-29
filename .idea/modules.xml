@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CleanArchitectureShowcase.iml" filepath="$PROJECT_DIR$/.idea/modules/CleanArchitectureShowcase.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CleanArchitectureShowcase.app.androidTest.iml" />
@@ -34,6 +35,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/libs/core/CleanArchitectureShowcase.libs.core.unitTest.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.main.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/data/CleanArchitectureShowcase.features.home.data.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/features/home/domain/CleanArchitectureShowcase.features.home.domain.main.iml" />
+>>>>>>> 4c974e5ad493933db7d215c46340c870e052ddf3
     </modules>
   </component>
 </project>
