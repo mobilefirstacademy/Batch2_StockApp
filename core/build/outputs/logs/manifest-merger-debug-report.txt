@@ -1,0 +1,25 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml:2:13-83
+INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml:2:13-83
+INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml:2:13-83
+	package
+		INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+		ADDED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml:2:13-83
+		INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+	xmlns:android
+		ADDED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml:2:23-81
+uses-sdk
+INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml reason: use-sdk injection requested
+INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+	android:targetSdkVersion
+		INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+		ADDED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+		INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+	android:minSdkVersion
+		INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+		ADDED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml
+		INJECTED from /Users/maksim/AndroidStudioProjects/CleanArch/libs/core/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17275418586091682396.xml

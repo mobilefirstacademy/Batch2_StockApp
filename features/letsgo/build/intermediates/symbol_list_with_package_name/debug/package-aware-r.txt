@@ -1,0 +1,5 @@
+com.example.letsgo
+id text
+layout fragment_lets_go
+string hello_blank_fragment
+string lets_start
