@@ -1,0 +1,12 @@
+R_DEF: Internal format may change without notice
+local
+drawable greeting_pic
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id fragment
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.CleanArchitectureShowcase
+style Theme.CleanArchitectureShowcase

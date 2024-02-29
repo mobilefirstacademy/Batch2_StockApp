@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "CleanArchitectureShowcase"
+include ':app'
+include ':home'
+include ':libs:core'
+include ':features:letsgo'
+include ':features:home:domain'
+include ':features:home:data'
+include ':features:home:presentation'
