@@ -49,6 +49,8 @@ class HomeFragment : Fragment() {
             this.greeting = greeting
         }
         return inflater.inflate(R.layout.fragment_home, container, false)
+
+        //wejf;lskjf;alskdfj;l
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
