@@ -57,3 +57,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+// Что-то написано
