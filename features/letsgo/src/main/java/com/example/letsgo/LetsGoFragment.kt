@@ -40,4 +40,4 @@ class LetsGoFragment : Fragment() {
     }
 }
 
-private const val NAME = "param1"
+private const val NAME = "NAME"

@@ -3,9 +3,9 @@ package com.example.cleanarchitectureshowcase
 import access.AccessRepositoryImpl
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.letsgo.LetsGoFragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.presentation.di.ViewModelFactoryProvider
-import com.example.presentation.ui.HomeFragment
 import interactors.HomeInteractor
 import repositories.TimeRepository
 import repositories.UserAccessRepository
@@ -15,6 +15,8 @@ import time.TimeService
 
 class MainActivity : AppCompatActivity() {
     private val router: TempRouter by lazy(::createRouter)
+    private lateinit var navController: NavController
+    private lateinit var navHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +27,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initEntry() {
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, HomeFragment.newInstance(
-                picId = R.drawable.greeting_pic,
-                "Приветствуем! \nПоздравляем с новым этапом обучения! \nРабота уже не за горами )"
-            ))
-            .commit()
+        val bundle = Bundle()
+        bundle.putInt(PIC_ID, R.drawable.greeting_pic)
+        bundle.putString(GREETING, "Приветствуем! \nПоздравляем с новым этапом обучения! \nРабота уже не за горами )")
+
+        navHostFragment  = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        navController.setGraph(R.navigation.nav_graph, bundle)
     }
     private fun initDi() {
         // TODO: Почитать про di выбрать какой полегче (из hilt или koin)
@@ -50,10 +53,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun createRouter() = object : TempRouter {
         override fun goTo_letsGo(name: String) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment, LetsGoFragment.newInstance(name))
-                .addToBackStack(null)
-                .commit()
+            val bundle = Bundle()
+            bundle.putString(NAME, name)
+
+            navController.navigate(R.id.action_homeFragment_to_letsGoFragment, bundle)
         }
     }
 }
+
+private const val PIC_ID = "PIC_ID"
+private const val GREETING = "GREETING"
+private const val NAME = "NAME"
+
+// Что-то написано
