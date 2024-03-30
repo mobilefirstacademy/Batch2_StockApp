@@ -6,14 +6,19 @@ import android.os.Bundle
 import com.example.letsgo.LetsGoFragment
 import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.ui.HomeFragment
+import dagger.hilt.android.AndroidEntryPoint
 import interactors.HomeInteractor
 import repositories.TimeRepository
 import repositories.UserAccessRepository
 import routing.TempRouter
 import time.TimeRepositoryImpl
 import time.TimeService
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var timeService: TimeService
     private val router: TempRouter by lazy(::createRouter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun initDi() {
         // TODO: Почитать про di выбрать какой полегче (из hilt или koin)
-        val timeService = TimeService()
+//        val timeService = TimeService()
         val accessRepository: UserAccessRepository = AccessRepositoryImpl()
         val timeRepository: TimeRepository = TimeRepositoryImpl(timeService)
         val interactor = HomeInteractor(
