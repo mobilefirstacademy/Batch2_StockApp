@@ -1,16 +1,13 @@
 package com.example.presentation.di
 
-import com.example.presentation.viewmodels.HomeViewModel
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import interactors.HomeInteractor
 import routing.TempRouter
+import javax.inject.Inject
 
-class ViewModelFactoryProvider(
+@HiltViewModel
+class ViewModelFactoryProvider @Inject constructor(
     private val interactor: HomeInteractor,
     private val router: TempRouter,
-) {
-    fun getViewModelFactory(): HomeViewModel.Factory = HomeViewModel.Factory(router, interactor)
-
-    companion object {
-        lateinit var INSTANCE: ViewModelFactoryProvider
-    }
-}
+) : ViewModel()

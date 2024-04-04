@@ -1,18 +1,15 @@
 package com.example.cleanarchitectureshowcase
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.ui.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
-import interactors.HomeInteractor
-import routing.TempRouter
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    @Inject lateinit var interactor: HomeInteractor
-    @Inject lateinit var router: TempRouter
+    private val viewModel: ViewModelFactoryProvider by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +28,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
     private fun initDi() {
-        ViewModelFactoryProvider.INSTANCE = ViewModelFactoryProvider(
-            interactor,
-            router
-        )
+
     }
 }

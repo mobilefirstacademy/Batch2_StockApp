@@ -1,7 +1,7 @@
 package com.example.cleanarchitectureshowcase
 
 import access.AccessRepositoryImpl
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.example.letsgo.LetsGoFragment
 import dagger.Binds
 import dagger.Module
@@ -38,11 +38,11 @@ object TimeRepositoryModule {
 object RouterModule {
     @Provides
     fun provideRouter(
-        fragmentActivity: FragmentActivity
+        fragmentManager: FragmentManager
     ): TempRouter {
         return object : TempRouter {
             override fun goTo_letsGo(name: String) {
-                fragmentActivity.supportFragmentManager.beginTransaction()
+                fragmentManager.beginTransaction()
                     .replace(R.id.fragment, LetsGoFragment.newInstance(name))
                     .addToBackStack(null)
                     .commit()
