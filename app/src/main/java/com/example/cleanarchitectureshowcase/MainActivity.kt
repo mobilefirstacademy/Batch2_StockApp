@@ -1,9 +1,7 @@
 package com.example.cleanarchitectureshowcase
 
-import access.AccessRepositoryImpl
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.letsgo.LetsGoFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.ui.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,7 +12,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject lateinit var interactor: HomeInteractor
-    private val router: TempRouter by lazy(::createRouter)
+    @Inject lateinit var router: TempRouter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,19 +31,9 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
     private fun initDi() {
-        val router = createRouter()
         ViewModelFactoryProvider.INSTANCE = ViewModelFactoryProvider(
             interactor,
             router
         )
-    }
-
-    private fun createRouter() = object : TempRouter {
-        override fun goTo_letsGo(name: String) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment, LetsGoFragment.newInstance(name))
-                .addToBackStack(null)
-                .commit()
-        }
     }
 }
