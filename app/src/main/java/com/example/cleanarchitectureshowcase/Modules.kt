@@ -1,19 +1,15 @@
 package com.example.cleanarchitectureshowcase
 
 import access.AccessRepositoryImpl
-import androidx.fragment.app.FragmentManager
-import com.example.letsgo.LetsGoFragment
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import repositories.TimeRepository
 import repositories.UserAccessRepository
 import routing.TempRouter
 import time.TimeRepositoryImpl
-import time.TimeService
 
 @Module
 @InstallIn (SingletonComponent::class)
@@ -26,27 +22,18 @@ abstract class AccessRepositoryModule {
 
 @Module
 @InstallIn (SingletonComponent::class)
-object TimeRepositoryModule {
-    @Provides
-    fun provideTimeRepository(timeService: TimeService): TimeRepository {
-        return TimeRepositoryImpl(timeService)
-    }
+abstract class TimeRepositoryModule {
+    @Binds
+    abstract fun provideTimeRepository(
+        timeRepositoryImpl: TimeRepositoryImpl
+    ): TimeRepository
 }
 
 @Module
-@InstallIn (ActivityComponent::class)
+@InstallIn (SingletonComponent::class)
 object RouterModule {
     @Provides
-    fun provideRouter(
-        fragmentManager: FragmentManager
-    ): TempRouter {
-        return object : TempRouter {
-            override fun goTo_letsGo(name: String) {
-                fragmentManager.beginTransaction()
-                    .replace(R.id.fragment, LetsGoFragment.newInstance(name))
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }
+    fun provideRouter(): TempRouter {
+        return Router
     }
 }
