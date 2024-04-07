@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/letsgo_nav_graph"
+    app:startDestination="@id/letsGoFragment">
+    <fragment
+        android:id="@+id/letsGoFragment"
+        android:name="com.example.letsgo.LetsGoFragment"
+        android:label="LetsGoFragment" >
+        <argument
+            android:name="NAME"
+            app:argType="string"
+            android:defaultValue="Anonymous" />
+    </fragment>
+</navigation>

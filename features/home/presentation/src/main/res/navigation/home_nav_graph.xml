@@ -2,9 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/home_nav_graph"
     app:startDestination="@id/homeFragment">
-    <include app:graph="@navigation/letsgo_nav_graph" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.presentation.ui.HomeFragment"
@@ -13,5 +12,13 @@
         <action
             android:id="@+id/action_homeFragment_to_letsgo_nav_graph"
             app:destination="@id/letsgo_nav_graph" />
+        <argument
+            android:name="PIC_ID"
+            app:argType="integer" />
+        <argument
+            android:name="GREETING"
+            app:argType="string" />
     </fragment>
+
+    <include app:graph="@navigation/letsgo_nav_graph" />
 </navigation>

@@ -9,12 +9,10 @@ import com.example.presentation.di.ViewModelFactoryProvider
 import interactors.HomeInteractor
 import repositories.TimeRepository
 import repositories.UserAccessRepository
-import routing.TempRouter
 import time.TimeRepositoryImpl
 import time.TimeService
 
 class MainActivity : AppCompatActivity() {
-    private val router: TempRouter by lazy(::createRouter)
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
 
@@ -44,20 +42,9 @@ class MainActivity : AppCompatActivity() {
             accessRepository,
             timeRepository
         )
-        val router = createRouter()
         ViewModelFactoryProvider.INSTANCE = ViewModelFactoryProvider(
-            interactor,
-            router
+            interactor
         )
-    }
-
-    private fun createRouter() = object : TempRouter {
-        override fun goTo_letsGo(name: String) {
-            val bundle = Bundle()
-            bundle.putString(NAME, name)
-
-            navController.navigate(R.id.action_homeFragment_to_letsGoFragment, bundle)
-        }
     }
 }
 

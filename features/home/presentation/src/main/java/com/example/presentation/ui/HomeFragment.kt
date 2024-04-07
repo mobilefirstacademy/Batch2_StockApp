@@ -18,6 +18,7 @@ import com.example.home.R
 import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.viewmodels.HomeViewModel
 import interactors.HomeInteractor
+import androidx.navigation.findNavController
 
 class HomeFragment : Fragment() {
     private var picId: Int? = null
@@ -65,7 +66,14 @@ class HomeFragment : Fragment() {
                 viewModel.refreshTime()
             }
             letsgoButton.setOnClickListener {
-                viewModel.letsGo(nameView.text.toString().takeIf { it != "" })
+                val name = nameView.text.toString().takeIf { it != "" }
+                if (name.isNullOrEmpty()) {
+                    findNavController().navigate(R.id.action_homeFragment_to_letsgo_nav_graph)
+                } else {
+                    val bundle = Bundle()
+                    bundle.putString(NAME, name)
+                    findNavController().navigate(R.id.action_homeFragment_to_letsgo_nav_graph, bundle)
+                }
             }
         }
 
@@ -128,3 +136,4 @@ private fun Bundle.obtainHomeFragmentState() = object {
 
 private const val PIC_ID = "PIC_ID"
 private const val GREETING = "GREETING"
+private const val NAME = "NAME"
