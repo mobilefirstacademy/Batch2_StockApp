@@ -28,6 +28,5 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
     private fun initDi() {
-        Router.addFragmentManager(supportFragmentManager)
     }
 }

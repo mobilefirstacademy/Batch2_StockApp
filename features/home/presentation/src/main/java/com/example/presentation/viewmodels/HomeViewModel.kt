@@ -1,5 +1,6 @@
 package com.example.presentation.viewmodels
 
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.presentation.viewmodels.time.Time
@@ -22,20 +23,8 @@ class HomeViewModel @Inject constructor(
         _timeLivedata.refresh()
     }
 
-    fun letsGo(name: String?) {
+    fun letsGo(name: String?, fragmentManager: FragmentManager) {
         // If ... and ...
-        router.goTo_letsGo(name ?: "Anonymous")
+        router.goTo_letsGo(name ?: "Anonymous", fragmentManager)
     }
-
-//    class Factory(
-//        private val router: TempRouter,
-//        private val interactor: HomeInteractor,
-//    ) : ViewModelProvider.Factory {
-//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//            if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-//                return HomeViewModel(router, interactor) as T
-//            }
-//            throw IllegalArgumentException("Unknown ViewModel class")
-//        }
-//    }
 }
