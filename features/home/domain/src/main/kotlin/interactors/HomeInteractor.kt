@@ -5,8 +5,10 @@ import exceptions.HomeException
 import exceptions.Reason
 import repositories.TimeRepository
 import repositories.UserAccessRepository
+import javax.inject.Inject
 
-class HomeInteractor(
+
+class HomeInteractor @Inject constructor(
     private val accessRepository: UserAccessRepository,
     private val timeRepository: TimeRepository,
 ) {

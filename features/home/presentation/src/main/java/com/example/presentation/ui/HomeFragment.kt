@@ -11,14 +11,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.MutableCreationExtras
+import androidx.fragment.app.viewModels
 import com.example.home.R
-import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.viewmodels.HomeViewModel
-import interactors.HomeInteractor
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var picId: Int? = null
     private var greeting: String? = null
@@ -31,13 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var timeLabel: TextView
     // TODO: Почитайте про view binding и используйте его
 
-    private val viewModel: HomeViewModel by lazy {
-        // TODO: Почитайте про viewModels() делегат и используйте его
-        ViewModelProvider(
-            viewModelStore,
-            ViewModelFactoryProvider.INSTANCE.getViewModelFactory(),
-        ).get(HomeViewModel::class.java)
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +41,6 @@ class HomeFragment : Fragment() {
             this.greeting = greeting
         }
         return inflater.inflate(R.layout.fragment_home, container, false)
-
-        //wejf;lskjf;alskdfj;l
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,7 +55,7 @@ class HomeFragment : Fragment() {
                 viewModel.refreshTime()
             }
             letsgoButton.setOnClickListener {
-                viewModel.letsGo(nameView.text.toString().takeIf { it != "" })
+                viewModel.letsGo(nameView.text.toString().takeIf { it != "" }, parentFragmentManager)
             }
         }
 
