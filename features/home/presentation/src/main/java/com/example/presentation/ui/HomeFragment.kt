@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
             this.picId = picId
             this.greeting = greeting
         }
-//        return inflater.inflate(R.layout.fragment_home, container, false)
         return view
     }
 
