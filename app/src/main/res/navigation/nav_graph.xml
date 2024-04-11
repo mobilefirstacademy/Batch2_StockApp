@@ -3,15 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
-    <include app:graph="@navigation/letsgo_nav_graph" />
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.presentation.ui.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_letsgo_nav_graph"
-            app:destination="@id/letsgo_nav_graph" />
-    </fragment>
+    app:startDestination="@id/home_nav_graph">
+    <include app:graph="@navigation/home_nav_graph" />
 </navigation>
