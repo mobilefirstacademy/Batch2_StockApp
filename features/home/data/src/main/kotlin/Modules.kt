@@ -11,16 +11,12 @@ import time.TimeRepositoryImpl
 
 @Module
 @InstallIn (SingletonComponent::class)
-abstract class AccessRepositoryModule {
+abstract class RepositoryModule {
     @Binds
     abstract fun provideAccessRepository(
         accessRepositoryImpl: AccessRepositoryImpl
     ): UserAccessRepository
-}
 
-@Module
-@InstallIn (SingletonComponent::class)
-abstract class TimeRepositoryModule {
     @Binds
     abstract fun provideTimeRepository(
         timeRepositoryImpl: TimeRepositoryImpl
