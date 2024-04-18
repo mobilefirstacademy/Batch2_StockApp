@@ -25,6 +25,10 @@ class HomeViewModel(
         router.goTo_letsGo(name ?: "Anonymous")
     }
 
+    fun stockList() {
+        router.goTo_stockList()
+    }
+
     class Factory(
         private val router: TempRouter,
         private val interactor: HomeInteractor,

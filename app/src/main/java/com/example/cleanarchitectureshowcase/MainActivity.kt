@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.letsgo.LetsGoFragment
 import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.ui.HomeFragment
+import com.example.stockgetter.TempStockListFragment
 import interactors.HomeInteractor
 import repositories.TimeRepository
 import repositories.UserAccessRepository
@@ -52,6 +53,13 @@ class MainActivity : AppCompatActivity() {
         override fun goTo_letsGo(name: String) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment, LetsGoFragment.newInstance(name))
+                .addToBackStack(null)
+                .commit()
+        }
+
+        override fun goTo_stockList() {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment, TempStockListFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
         }

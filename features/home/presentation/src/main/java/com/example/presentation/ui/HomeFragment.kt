@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var letsgoButton: Button
     private lateinit var refreshTimeButton: ImageButton
     private lateinit var timeLabel: TextView
+    private lateinit var stocklistButton: Button
     // TODO: Почитайте про view binding и используйте его
 
     private val viewModel: HomeViewModel by lazy {
@@ -67,6 +68,9 @@ class HomeFragment : Fragment() {
             letsgoButton.setOnClickListener {
                 viewModel.letsGo(nameView.text.toString().takeIf { it != "" })
             }
+            stocklistButton.setOnClickListener {
+                viewModel.stockList()
+            }
         }
 
         viewModel.timeLivedata.observe(viewLifecycleOwner) { result ->
@@ -101,6 +105,7 @@ class HomeFragment : Fragment() {
         letsgoButton = findViewById(R.id.letsgo_button)
         refreshTimeButton = findViewById(R.id.refresh_time_button)
         timeLabel = findViewById(R.id.time_label)
+        stocklistButton = findViewById(R.id.stock_list_button)
     }
 
     companion object {
