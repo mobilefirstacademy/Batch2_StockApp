@@ -5,42 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.widget.Placeholder
 import com.example.home.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -100,6 +88,17 @@ class StocksFragment : Fragment() {
     }
 }
 
+class Stock(
+    ticker: String,
+    name: String,
+    price: Double,
+    diff: Double
+)
+val basicStocks = listOf(
+    Stock("YNDX", "Yandex, LCC", 4764.6, 1.15),
+    Stock("AAPL", "Apple Inc.", 131.93, 1.15),
+)
+
 @Preview
 @Composable
 fun PreviewStockPage() {
@@ -113,13 +112,12 @@ fun StocksPage() {
     Surface(
         Modifier.padding(15.dp)
     ) {
-        // поисковая строка
-        InputSearch("Find company or ticker",)
-        // TODO: вкладки
-
-        // TODO: список тикеров
-        // TODO:
-
+        Column {
+            InputSearch("Find company or ticker") // поисковая строка
+            Tabs(tabs = listOf("Stocks", "Favorite")) // вкладки
+            StocksList(stocks = basicStocks)// TODO: список тикеров
+            // TODO:
+        }
     }
 }
 
@@ -133,7 +131,9 @@ fun InputSearch(placeholder: String, value: String = "") {
         )
     ) {
         Image(
-            modifier = Modifier.padding(15.dp, 15.dp, 0.dp, 15.dp).size(25.dp),
+            modifier = Modifier
+                .padding(15.dp, 15.dp, 0.dp, 15.dp)
+                .size(25.dp),
             painter = painterResource(id = R.drawable.refresh_icon), // TODO: change picture
             contentDescription = "searching icon",
         )
@@ -148,6 +148,45 @@ fun InputSearch(placeholder: String, value: String = "") {
                 unfocusedContainerColor = Color.Transparent,
                 focusedContainerColor = Color.Transparent,
             )
+        )
+    }
+}
+
+@Composable
+fun Tabs(tabs: List<String>) {
+    Surface{
+        Row {
+            tabs.forEach {
+                Tab(it)
+            }
+        }
+    }
+}
+
+@Composable
+fun Tab(name: String) {
+    Text(text = name)
+}
+
+@Composable
+fun StocksList(stocks: List<Stock>) {
+    LazyColumn {
+        items(stocks) {stock ->
+            StockItem(stock)
+        }
+    }
+}
+
+@Composable
+fun StockItem(stock: Stock) {
+    Row(modifier = Modifier.background(color = Color.Gray, shape = RoundedCornerShape(10.dp)),){
+        Image(
+            modifier = Modifier
+                .padding(5.dp)
+                .size(45.dp)
+            ,
+            painter = painterResource(id = R.drawable.refresh_icon), // TODO: change picture
+            contentDescription = "searching icon",
         )
     }
 }
