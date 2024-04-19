@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -29,7 +33,9 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.home.R
+import kotlinx.coroutines.channels.ticker
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,15 +94,20 @@ class StocksFragment : Fragment() {
     }
 }
 
+enum class UnitOfAccount {
+    RUB, USD, EUR
+}
 class Stock(
-    ticker: String,
-    name: String,
-    price: Double,
-    diff: Double
+    val ticker: String,
+    val name: String,
+    val unitOfAccount: UnitOfAccount,
+    val price: Double,
+    val diff: Double,
+    val isFavourite: Boolean,
 )
 val basicStocks = listOf(
-    Stock("YNDX", "Yandex, LCC", 4764.6, 1.15),
-    Stock("AAPL", "Apple Inc.", 131.93, 1.15),
+    Stock("YNDX", "Yandex, LCC", UnitOfAccount.RUB, 4764.6, 1.15, false),
+    Stock("AAPL", "Apple Inc.", UnitOfAccount.USD, 131.93, 1.15, true),
 )
 
 @Preview
@@ -138,16 +149,16 @@ fun InputSearch(placeholder: String, value: String = "") {
             contentDescription = "searching icon",
         )
         TextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.Transparent),
             value = value,
             onValueChange = {},
             placeholder = { Text(placeholder) },
             colors = TextFieldDefaults.colors(
                 unfocusedContainerColor = Color.Transparent,
                 focusedContainerColor = Color.Transparent,
-            )
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Transparent),
         )
     }
 }
@@ -170,7 +181,9 @@ fun Tab(name: String) {
 
 @Composable
 fun StocksList(stocks: List<Stock>) {
-    LazyColumn {
+    LazyColumn(
+        Modifier.fillMaxWidth()
+    ) {
         items(stocks) {stock ->
             StockItem(stock)
         }
@@ -179,14 +192,66 @@ fun StocksList(stocks: List<Stock>) {
 
 @Composable
 fun StockItem(stock: Stock) {
-    Row(modifier = Modifier.background(color = Color.Gray, shape = RoundedCornerShape(10.dp)),){
-        Image(
+    stock.run {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .padding(5.dp)
-                .size(45.dp)
-            ,
-            painter = painterResource(id = R.drawable.refresh_icon), // TODO: change picture
-            contentDescription = "searching icon",
+                .background(
+                    color = Color(0xFFF0F4F7),
+                    shape = RoundedCornerShape(10.dp)
+                )
+                .fillMaxWidth()
+
+        ) {
+            Row {
+                Image(
+                    painter = painterResource(id = R.drawable.refresh_icon), // TODO: change picture
+                    contentDescription = "searching icon",
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .size(45.dp)
+                )
+
+                Column {
+                    Ticker(ticker, isFavourite)
+                    CompanyName(name)
+                }
+            }
+            Column {
+                Price(price, unitOfAccount)
+                Diff(diff)
+            }
+        }
+    }
+}
+
+@Composable
+fun Ticker(ticker: String, isFavourite: Boolean) {
+    Row{
+        Text(text = ticker)
+        Text(
+            text = "★",
+            color = if (isFavourite) Color(0xFFFFCA1C) else Color(0xFFBABABA),
         )
     }
+}
+
+@Composable
+fun CompanyName(name: String) {
+    Text(text = name)
+}
+
+@Composable
+fun Price(price: Double, unitOfAccount: UnitOfAccount) {
+    val sign = when(unitOfAccount) {
+        UnitOfAccount.RUB -> "₽"
+        UnitOfAccount.USD -> "$"
+        UnitOfAccount.EUR -> "€"
+    }
+    Text(text = "$price $sign")
+}
+
+@Composable
+fun Diff(diff: Double) {
+    Text(text = "($diff)%", )
 }
