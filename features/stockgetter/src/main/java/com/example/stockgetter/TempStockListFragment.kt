@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.awaitResponse
+import java.io.IOException
 
 class TempStockListFragment : Fragment() {
-    private var stockList : MutableList<StockModel>? = null
     private lateinit var rvStockList : RecyclerView
+    private val apiKey = "UOwG8c78cY5kVLuoEke3gu5JK2i8IGyK"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,35 +31,42 @@ class TempStockListFragment : Fragment() {
         rvStockList = view.findViewById(R.id.rv_stock_list)
         rvStockList.layoutManager = LinearLayoutManager(requireContext())
 
-        fetchStockList()
+        fetchDataWithCoroutines(apiKey)
+    }
+    suspend fun fetchStockList(apiKey: String): MutableList<StockModel>? {
+        return try {
+            val response = StockProvider.stockApi.getStockList(apiKey).awaitResponse()
+
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                Log.e("Stock", "${response.code()}:\n${response.errorBody()?.string()}")
+                null
+            }
+        } catch (e: IOException) {
+            Log.e("Stock", "Ошибка при выполнении запроса: ${e.message}")
+            Toast.makeText(
+                requireContext(),
+                "Ошибка при выполнении запроса: ${e.message}",
+                Toast.LENGTH_SHORT
+            ).show()
+            null
+        }
     }
 
-    private fun fetchStockList() {
-        val apiKey = "UOwG8c78cY5kVLuoEke3gu5JK2i8IGyK"
-        val call: Call<MutableList<StockModel>> = StockProvider.stockApi.getStockList(apiKey)
+    private fun handleStockListResult(result: MutableList<StockModel>?) {
+        result?.let {
+            setStockListAdapter(it)
+        } ?: run {
+            Log.e("Stock", "Не удалось получить список акций")
+        }
+    }
 
-        call.enqueue(object : Callback<MutableList<StockModel>> {
-            override fun onResponse(
-                call: Call<MutableList<StockModel>>,
-                response: Response<MutableList<StockModel>>
-            ) {
-                if (response.isSuccessful) {
-                    stockList = response.body()
-                    setStockListAdapter(stockList)
-                } else {
-                    Log.e("Stock", "${response.code()}:\n${response.errorBody()?.string()}")
-                }
-            }
-
-            override fun onFailure(call: Call<MutableList<StockModel>>, t: Throwable) {
-                Log.e("MainActivity", "Ошибка при выполнении запроса: ${t.message}")
-                Toast.makeText(
-                    requireContext(),
-                    "Ошибка при выполнении запроса: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+    private fun fetchDataWithCoroutines(apiKey: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val result = fetchStockList(apiKey)
+            handleStockListResult(result)
+        }
     }
 
     private fun setStockListAdapter(stockList: MutableList<StockModel>?) {
