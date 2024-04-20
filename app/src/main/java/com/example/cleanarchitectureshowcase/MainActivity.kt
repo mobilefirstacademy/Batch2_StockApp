@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.example.letsgo.LetsGoFragment
 import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.ui.HomeFragment
-import com.example.stockgetter.TempStockListFragment
+import com.example.presentation.TempStockListFragment
 import interactors.HomeInteractor
 import repositories.TimeRepository
 import repositories.UserAccessRepository
