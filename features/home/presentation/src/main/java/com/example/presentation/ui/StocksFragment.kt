@@ -195,6 +195,9 @@ fun InputSearch(placeholder: String, value: String = "") {
             colors = TextFieldDefaults.colors(
                 unfocusedContainerColor = Color.Transparent,
                 focusedContainerColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent
             ),
             modifier = Modifier
                 .fillMaxWidth()
