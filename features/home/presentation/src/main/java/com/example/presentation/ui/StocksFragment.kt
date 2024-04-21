@@ -12,13 +12,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,17 +27,29 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.googlefonts.Font
+import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.home.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -112,26 +124,50 @@ class Stock(
 val basicStocks = listOf(
     Stock("YNDX", "Yandex, LCC", UnitOfAccount.RUB,4709.6, 4764.6, false, R.drawable.yandex),
     Stock("AAPL", "Apple Inc.", UnitOfAccount.USD, 131.81, 131.93, true, R.drawable.apple),
+    Stock("YNDX", "Yandex, LCC", UnitOfAccount.RUB,4709.6, 4764.6, false, R.drawable.yandex),
+    Stock("AAPL", "Apple Inc.", UnitOfAccount.USD, 131.81, 131.93, true, R.drawable.apple),
+    Stock("YNDX", "Yandex, LCC", UnitOfAccount.RUB,4709.6, 4764.6, false, R.drawable.yandex),
+    Stock("AAPL", "Apple Inc.", UnitOfAccount.USD, 131.81, 131.93, true, R.drawable.apple),
+    Stock("YNDX", "Yandex, LCC", UnitOfAccount.RUB,4709.6, 4764.6, false, R.drawable.yandex),
+    Stock("AAPL", "Apple Inc.", UnitOfAccount.USD, 131.81, 131.93, true, R.drawable.apple),
+    Stock("YNDX", "Yandex, LCC", UnitOfAccount.RUB,4709.6, 4764.6, false, R.drawable.yandex),
+    Stock("AAPL", "Apple Inc.", UnitOfAccount.USD, 131.81, 131.93, true, R.drawable.apple),
+    Stock("YNDX", "Yandex, LCC", UnitOfAccount.RUB,4709.6, 4764.6, false, R.drawable.yandex),
+    Stock("AAPL", "Apple Inc.", UnitOfAccount.USD, 131.81, 131.93, true, R.drawable.apple),
+    Stock("YNDX", "Yandex, LCC", UnitOfAccount.RUB,4709.6, 4764.6, false, R.drawable.yandex),
+    Stock("AAPL", "Apple Inc.", UnitOfAccount.USD, 131.81, 131.93, true, R.drawable.apple),
 )
+
+val provider = GoogleFont.Provider(
+    providerAuthority = "com.google.android.gms.fonts",
+    providerPackage = "com.google.android.gms",
+    certificates = R.array.com_google_android_gms_fonts_certs
+)
+val fontName = GoogleFont("Montserrat")
+val Montserrat = FontFamily( Font(googleFont = fontName, fontProvider = provider) )
 
 @Preview
 @Composable
 fun PreviewStockPage() {
-    MaterialTheme {
+    MaterialTheme(
+        typography = Typography(
+            bodyLarge = TextStyle(fontFamily = Montserrat)
+        )
+    ) {
         StocksPage()
     }
 }
 
 @Composable
 fun StocksPage() {
+    val padding = 15.dp
     Surface(
-        Modifier.padding(15.dp)
+        Modifier.padding(start = padding, top = padding, end = padding)
     ) {
         Column {
             InputSearch("Find company or ticker") // поисковая строка
             Tabs(tabs = listOf("Stocks", "Favorite"), 0) // вкладки
-            StocksList(stocks = basicStocks)// TODO: список тикеров
-            // TODO:
+            StocksList(stocks = basicStocks)
         }
     }
 }
@@ -170,7 +206,13 @@ fun InputSearch(placeholder: String, value: String = "") {
 @Composable
 fun Tabs(tabs: List<String>, currentIndex: Int) {
     Surface{
-        Row {
+        val gap = 15.dp
+        Row (
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.spacedBy(30.dp),
+            modifier = Modifier
+                .padding(top = gap, bottom = gap)
+        ) {
             Tab(tabs[0], true)
             Tab(tabs[1], false)
         }
@@ -178,10 +220,19 @@ fun Tabs(tabs: List<String>, currentIndex: Int) {
 }
 
 @Composable
-fun Tab(name: String, isCurrent: Boolean) {
-    val weight = if (isCurrent) FontWeight.Bold else null
-    Text(text = name, fontWeight = weight)
+fun RowScope.Tab(name: String, isCurrent: Boolean) {
+    val weight = FontWeight.W900
+    val fontSize = if (isCurrent) 30F else 20F
+    val fontColor = if (isCurrent) Color.Black else Color(0xFFBABABA)
+    Text(
+        text = name,
+        fontWeight = weight,
+        fontSize = TextUnit(fontSize, TextUnitType.Sp),
+        color = fontColor,
+        modifier = Modifier.alignByBaseline()
+    )
 }
+
 
 @Composable
 fun StocksList(stocks: List<Stock>) {
@@ -243,7 +294,7 @@ fun Ticker(ticker: String, isFavourite: Boolean) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ){
-        Text(text = ticker)
+        Text(text = ticker, fontWeight = FontWeight.W900)
         Text(
             text = "★",
             color = if (isFavourite) Color(0xFFFFCA1C) else Color(0xFFBABABA),
@@ -256,7 +307,11 @@ fun Ticker(ticker: String, isFavourite: Boolean) {
 
 @Composable
 fun CompanyName(name: String) {
-    Text(text = name)
+    Text(
+        text = name,
+        fontWeight = FontWeight.W600,
+        fontSize = TextUnit(10F,TextUnitType.Sp)
+    )
 }
 
 @Composable
