@@ -13,10 +13,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -29,14 +27,10 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -45,11 +39,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.home.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -83,31 +75,30 @@ class StocksFragment : Fragment() {
     ): View? {
         return ComposeView(requireContext()).apply {
             setContent {
-                StocksPage()
+                val globalBackgroundColor = Color.White
+                MaterialTheme(
+                    typography = Typography(
+                        bodyLarge = TextStyle(fontFamily = Montserrat)
+                    ),
+                ) {
+                    Surface(color = globalBackgroundColor) { StocksPage(globalBackgroundColor) }
+                }
             }
         }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StocksFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(name: String) =
             StocksFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(NAME, name)
                 }
             }
     }
 }
+
+private const val NAME = "param1"
 
 enum class UnitOfAccount {
     RUB, USD, EUR
@@ -154,19 +145,21 @@ fun PreviewStockPage() {
             bodyLarge = TextStyle(fontFamily = Montserrat)
         )
     ) {
-        StocksPage()
+        StocksPage(Color.White)
     }
 }
 
 @Composable
-fun StocksPage() {
+fun StocksPage(color: Color) {
     val padding = 15.dp
     Surface(
-        Modifier.padding(start = padding, top = padding, end = padding)
+        color = color,
+        modifier = Modifier
+            .padding(start = padding, top = padding, end = padding)
     ) {
         Column {
             InputSearch("Find company or ticker") // поисковая строка
-            Tabs(tabs = listOf("Stocks", "Favorite"), 0) // вкладки
+            Tabs(tabs = listOf("Stocks", "Favourite"), 0) // вкладки
             StocksList(stocks = basicStocks)
         }
     }
@@ -208,7 +201,7 @@ fun InputSearch(placeholder: String, value: String = "") {
 
 @Composable
 fun Tabs(tabs: List<String>, currentIndex: Int) {
-    Surface{
+    Surface(color = Color.White){
         val gap = 15.dp
         Row (
             verticalAlignment = Alignment.Bottom,
@@ -298,12 +291,12 @@ fun Ticker(ticker: String, isFavourite: Boolean) {
         verticalAlignment = Alignment.CenterVertically,
     ){
         Text(text = ticker, fontWeight = FontWeight.W900)
-        Text(
-            text = "★",
-            color = if (isFavourite) Color(0xFFFFCA1C) else Color(0xFFBABABA),
+        Image(
+            painter = painterResource(id = if (isFavourite) R.drawable.star_off else R.drawable.star_on),
+            contentDescription = "not favorite",
             modifier = Modifier
-                .fillMaxHeight()
-                .align(Alignment.Top)
+                .padding(5.dp)
+                .size(16.dp)
         )
     }
 }
