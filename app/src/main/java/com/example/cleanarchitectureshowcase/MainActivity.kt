@@ -5,17 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.letsgo.LetsGoFragment
 import com.example.presentation.di.ViewModelFactoryProvider
-import com.example.presentation.ui.HomeFragment
 import com.example.presentation.ui.StocksFragment
 import interactors.HomeInteractor
+import interactors.StocksInteractor
 import repositories.TimeRepository
 import repositories.UserAccessRepository
 import routing.TempRouter
+import stocks.StocksRepositoryImpl
 import time.TimeRepositoryImpl
 import time.TimeService
 
 class MainActivity : AppCompatActivity() {
     private val router: TempRouter by lazy(::createRouter)
+    private val stocksInteractor = StocksInteractor(
+        StocksRepositoryImpl()
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initEntry() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, StocksFragment.newInstance())
+            .add(R.id.fragment, StocksFragment.newInstance(stocksInteractor.getOwnStocks()))
             .commit()
     }
     private fun initDi() {

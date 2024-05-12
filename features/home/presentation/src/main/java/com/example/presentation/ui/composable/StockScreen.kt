@@ -35,24 +35,11 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.example.home.R
 import com.example.presentation.ui.Montserrat
-import com.example.presentation.ui.Stock
 import com.example.presentation.ui.UnitOfAccount
-import com.example.presentation.ui.basicStocks
-
-@Preview
-@Composable
-fun PreviewStockPage() {
-    MaterialTheme(
-        typography = Typography(
-            bodyLarge = TextStyle(fontFamily = Montserrat)
-        )
-    ) {
-        StocksPage(Color.White)
-    }
-}
+import entities.Stock
 
 @Composable
-fun StocksPage(color: Color) {
+fun StocksPage(color: Color, stocks: List<Stock>) {
     val padding = 15.dp
     Surface(
         color = color,
@@ -62,7 +49,7 @@ fun StocksPage(color: Color) {
         Column {
             InputSearch("Find company or ticker") // поисковая строка
             Tabs(tabs = listOf("Stocks", "Favourite"), 0) // вкладки
-            StocksList(stocks = basicStocks)
+            StocksList(stocks = stocks)
         }
     }
 }
