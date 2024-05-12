@@ -3,6 +3,7 @@ package com.example.cleanarchitectureshowcase
 import access.AccessRepositoryImpl
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.letsgo.LetsGoFragment
 import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.ui.HomeFragment
 import com.example.presentation.ui.StocksFragment
@@ -26,10 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initEntry() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, HomeFragment.newInstance(
-                picId = R.drawable.greeting_pic,
-                "Приветствуем! \nПоздравляем с новым этапом обучения! \nРабота уже не за горами )"
-            ))
+            .add(R.id.fragment, StocksFragment.newInstance())
             .commit()
     }
     private fun initDi() {
@@ -51,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     private fun createRouter() = object : TempRouter {
         override fun goTo_letsGo(name: String) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment, StocksFragment.newInstance(name))
+                .replace(R.id.fragment, LetsGoFragment.newInstance(name))
                 .addToBackStack(null)
                 .commit()
         }

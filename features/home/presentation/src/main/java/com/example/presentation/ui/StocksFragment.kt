@@ -89,12 +89,7 @@ class StocksFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(name: String) =
-            StocksFragment().apply {
-                arguments = Bundle().apply {
-                    putString(NAME, name)
-                }
-            }
+        fun newInstance() = StocksFragment()
     }
 }
 
