@@ -44,8 +44,6 @@ class StocksFragment : Fragment() {
     }
 }
 
-private const val NAME = "param1"
-
 enum class UnitOfAccount {
     RUB, USD, EUR
 }
