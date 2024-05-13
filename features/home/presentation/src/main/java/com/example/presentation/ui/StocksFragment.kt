@@ -23,9 +23,13 @@ import androidx.core.os.BundleCompat.getParcelable
 import androidx.core.os.BundleCompat.getParcelableArrayList
 import androidx.fragment.app.Fragment
 import com.example.home.R
+import com.example.presentation.ui.StocksFragment.ParcelableStock.write
 import com.example.presentation.ui.composable.StocksPage
 import entities.Stock
 import entities.UnitOfAccount
+import kotlinx.parcelize.Parceler
+import kotlinx.parcelize.Parcelize
+import java.util.ArrayList
 
 class StocksFragment : Fragment() {
     private var stocks: List<Parcelable>? = null
@@ -55,47 +59,39 @@ class StocksFragment : Fragment() {
         fun newInstance(stocks: List<Stock>) =
             StocksFragment().apply {
                 arguments = Bundle().apply {
-                    val parcelableStocks: Array<Parcelable> =
-                        stocks.map { stock -> ParcelableStock(stock) }.toTypedArray()
+                    val parcel = Parcel.obtain()
+                    val parcelableStocks: Array<Parcelable> = arrayOf()
                     putParcelableArrayList("STOCKS", arrayListOf(*parcelableStocks))
                 }
             }
 
     }
 
-    class ParcelableStock(private val stock: Stock): Parcelable {
-        override fun describeContents(): Int = 0
+    object ParcelableStock : Parceler<Stock> {
+        override fun create(parcel: Parcel): Stock = Stock(
+            ticker = parcel.readString()!!,
+            name = parcel.readString()!!,
+            unitOfAccount = UnitOfAccount.valueOf(parcel.readString()!!),
+            purchasePrice = parcel.readDouble(),
+            currentPrice = parcel.readDouble(),
+            isFavourite = parcel.readBoolean(),
+            imageResource = parcel.readInt(),
+        )
 
-        @RequiresApi(Build.VERSION_CODES.Q)
-        override fun writeToParcel(dest: Parcel, flags: Int) {
-            dest.writeString(stock.ticker)
-            dest.writeString(stock.name)
-            dest.writeString(stock.unitOfAccount.toString())
-            dest.writeDouble(stock.purchasePrice)
-            dest.writeDouble(stock.currentPrice)
-            dest.writeBoolean(stock.isFavourite)
-            dest.writeInt(stock.imageResource)
+        override fun Stock.write(parcel: Parcel, flags: Int) {
+            parcel.writeString(this.ticker)
+            parcel.writeString(this.name)
+            parcel.writeString(this.unitOfAccount.toString())
+            parcel.writeDouble(this.purchasePrice)
+            parcel.writeDouble(this.currentPrice)
+            parcel.writeBoolean(this.isFavourite)
+            parcel.writeInt(this.imageResource)
         }
 
-        companion object CREATOR : Parcelable.Creator<Stock> {
-            @RequiresApi(Build.VERSION_CODES.Q)
-            override fun createFromParcel(parcel: Parcel): Stock {
-                return Stock(
-                    ticker = parcel.readString()!!,
-                    name = parcel.readString()!!,
-                    unitOfAccount = UnitOfAccount.valueOf(parcel.readString()!!),
-                    purchasePrice = parcel.readDouble(),
-                    currentPrice = parcel.readDouble(),
-                    isFavourite = parcel.readBoolean(),
-                    imageResource = parcel.readInt(),
-                )
-            }
+        @Parcelize
+        data class Stocks(val stocks: List<ParcelableStock>): Parcelable
 
-            override fun newArray(size: Int): Array<Stock> {
-                TODO("Not yet implemented")
-            }
-        }
-}
+    }
 
 
 val provider = GoogleFont.Provider(
