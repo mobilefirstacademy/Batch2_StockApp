@@ -36,13 +36,11 @@ class MainActivity : AppCompatActivity() {
     }
     private fun initDi() {
         // TODO: Почитать про di выбрать какой полегче (из hilt или koin)
-        val timeService = TimeService()
-        val accessRepository: UserAccessRepository = AccessRepositoryImpl()
-        val timeRepository: TimeRepository = TimeRepositoryImpl(timeService)
-        val interactor = HomeInteractor(
-            accessRepository,
-            timeRepository
-        )
+//        val timeService = TimeService()
+//        val accessRepository: UserAccessRepository = AccessRepositoryImpl()
+//        val timeRepository: TimeRepository = TimeRepositoryImpl(timeService)
+        val stocksRepository = StocksRepositoryImpl()
+        val interactor = StocksInteractor(stocksRepository)
         val router = createRouter()
         ViewModelFactoryProvider.INSTANCE = ViewModelFactoryProvider(
             interactor,

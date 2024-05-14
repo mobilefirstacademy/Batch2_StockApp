@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.example.home.R
 import com.example.presentation.ui.Montserrat
-import com.example.presentation.ui.UnitOfAccount
+import entities.UnitOfAccount
 import entities.Stock
 
 @Composable
@@ -235,5 +235,24 @@ fun Diff(diff: String, absoluteDiff: Double, unit: UnitOfAccount) {
         modifier = Modifier.fillMaxWidth()
     ){
         Text(text = "$absDiffFormatted ($diff%)", color = fontColor)
+    }
+}
+
+
+@Preview
+@Composable
+fun PreviewStockPage() {
+    MaterialTheme(
+        typography = Typography(
+            bodyLarge = TextStyle(fontFamily = Montserrat)
+        )
+    ) {
+        StocksPage(
+            Color.White,
+            listOf(
+                Stock(imageResource = R.drawable.refresh_icon),
+                Stock(imageResource = R.drawable.refresh_icon),
+            )
+        )
     }
 }
