@@ -24,7 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
@@ -36,22 +38,22 @@ import entities.Stock
 val defaultStocks = listOf(Stock(imageResource = R.drawable.refresh_icon))
 @Composable
 fun StocksPage(color: Color, stocks: List<Stock>) {
-    val padding = 15.dp
+    val padding = dimensionResource(id = R.dimen.standard_padding)
     Surface(
         color = color,
         modifier = Modifier
             .padding(start = padding, top = padding, end = padding)
     ) {
         Column {
-            InputSearch("Find company or ticker") // поисковая строка
-            Tabs(tabs = listOf("Stocks", "Favourite"), 0) // вкладки
+            SearchInput(stringResource(R.string.search_input_label))
+            Tabs(tabs = listOf("Stocks", "Favourite"), 0)
             StocksList(stocks)
         }
     }
 }
 
 @Composable
-fun InputSearch(placeholder: String, value: String = "") {
+fun SearchInput(placeholder: String, value: String = "") {
     Row(
         modifier = Modifier.border(
             width = 1.dp,
@@ -64,7 +66,7 @@ fun InputSearch(placeholder: String, value: String = "") {
                 .padding(15.dp, 15.dp, 0.dp, 15.dp)
                 .size(25.dp),
             painter = painterResource(id = R.drawable.search),
-            contentDescription = "searching icon",
+            contentDescription = stringResource(R.string.searching_icon_content_description),
         )
         TextField(
             value = value,
@@ -177,7 +179,7 @@ fun Ticker(ticker: String, isFavourite: Boolean) {
     ){
         Text(text = ticker, fontWeight = FontWeight.W900)
         Image(
-            painter = painterResource(id = if (isFavourite) R.drawable.star_off else R.drawable.star_on),
+            painter = painterResource(id = if (isFavourite) R.drawable.star_on else R.drawable.star_off),
             contentDescription = "not favorite",
             modifier = Modifier
                 .padding(5.dp)

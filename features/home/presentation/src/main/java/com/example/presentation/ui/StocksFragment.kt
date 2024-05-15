@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Typography
@@ -21,7 +22,7 @@ import com.example.presentation.ui.composable.StocksPage
 import com.example.presentation.viewmodels.StockViewModel
 import entities.Stock
 
-val loadedStocksData = listOf(Stock(imageResource = R.drawable.refresh_icon))
+var stocksData = listOf(Stock(imageResource = R.drawable.refresh_icon))
 class StocksFragment : Fragment() {
     private val viewModel: StockViewModel by lazy {
         ViewModelProvider(
@@ -46,7 +47,7 @@ class StocksFragment : Fragment() {
                     Surface(color = globalBackgroundColor) {
                         StocksPage(
                             globalBackgroundColor,
-                            loadedStocksData
+                            stocksData
                         )
                     }
                 }
@@ -58,7 +59,13 @@ class StocksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(view) {
-            
+            viewModel.stocksLivedata.observe(viewLifecycleOwner) { result ->
+                result.onFailure { ex ->
+                    Toast.makeText(requireContext(), ex.message, Toast.LENGTH_LONG).show()
+                }.onSuccess { stock ->
+                    stocksData = stock
+                }
+            }
         }
     }
 

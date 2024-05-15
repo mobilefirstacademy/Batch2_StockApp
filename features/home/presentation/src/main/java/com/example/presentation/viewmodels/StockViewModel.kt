@@ -12,12 +12,8 @@ class StockViewModel(
     interactor: StocksInteractor,
 ): ViewModel() {
 
-    private val _stocksLivedata = StocksLivedata(interactor, listOf(Stock(imageResource = R.drawable.refresh_icon)))
+    private val _stocksLivedata = StocksLivedata(interactor, interactor.getOwnStocks())
     val stocksLivedata: LiveData<Result<List<Stock>>> = _stocksLivedata
-
-    fun refreshStocks() {
-        _stocksLivedata.refresh()
-    }
 
     class Factory(
         private val interactor: StocksInteractor,
