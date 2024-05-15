@@ -15,29 +15,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.example.home.R
-import com.example.presentation.ui.Montserrat
 import entities.UnitOfAccount
 import entities.Stock
 
+val defaultStocks = listOf(Stock(imageResource = R.drawable.refresh_icon))
 @Composable
 fun StocksPage(color: Color, stocks: List<Stock>) {
     val padding = 15.dp
@@ -49,7 +45,7 @@ fun StocksPage(color: Color, stocks: List<Stock>) {
         Column {
             InputSearch("Find company or ticker") // поисковая строка
             Tabs(tabs = listOf("Stocks", "Favourite"), 0) // вкладки
-            StocksList(stocks = stocks)
+            StocksList(stocks)
         }
     }
 }
@@ -235,24 +231,5 @@ fun Diff(diff: String, absoluteDiff: Double, unit: UnitOfAccount) {
         modifier = Modifier.fillMaxWidth()
     ){
         Text(text = "$absDiffFormatted ($diff%)", color = fontColor)
-    }
-}
-
-
-@Preview
-@Composable
-fun PreviewStockPage() {
-    MaterialTheme(
-        typography = Typography(
-            bodyLarge = TextStyle(fontFamily = Montserrat)
-        )
-    ) {
-        StocksPage(
-            Color.White,
-            listOf(
-                Stock(imageResource = R.drawable.refresh_icon),
-                Stock(imageResource = R.drawable.refresh_icon),
-            )
-        )
     }
 }

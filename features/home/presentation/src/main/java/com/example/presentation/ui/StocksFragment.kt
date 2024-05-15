@@ -14,12 +14,21 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.home.R
+import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.ui.composable.StocksPage
+import com.example.presentation.viewmodels.StockViewModel
 import entities.Stock
 
+val loadedStocksData = listOf(Stock(imageResource = R.drawable.refresh_icon))
 class StocksFragment : Fragment() {
-    private var stocks: List<Stock> = listOf(Stock(imageResource = R.drawable.refresh_icon)) // TODO: change default list
+    private val viewModel: StockViewModel by lazy {
+        ViewModelProvider(
+            viewModelStore,
+            ViewModelFactoryProvider.INSTANCE.getViewModelFactory()
+        )[StockViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +46,7 @@ class StocksFragment : Fragment() {
                     Surface(color = globalBackgroundColor) {
                         StocksPage(
                             globalBackgroundColor,
-                            stocks
+                            loadedStocksData
                         )
                     }
                 }
@@ -45,9 +54,17 @@ class StocksFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(view) {
+            
+        }
+    }
+
     companion object {
         @JvmStatic
-        fun newInstance(stocks: List<Stock>) = StocksFragment()
+        fun newInstance() = StocksFragment()
     }
 }
 

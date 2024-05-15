@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initEntry() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, StocksFragment.newInstance(stocksInteractor.getOwnStocks()))
+            .add(R.id.fragment, StocksFragment.newInstance())
             .commit()
     }
     private fun initDi() {
@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         val router = createRouter()
         ViewModelFactoryProvider.INSTANCE = ViewModelFactoryProvider(
             interactor,
-            router
         )
     }
 
