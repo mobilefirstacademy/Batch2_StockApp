@@ -8,4 +8,7 @@
     <dimen name="tabs_horizontal_arrangement">30dp</dimen>
     <dimen name="current_tab_font_size">30sp</dimen>
     <dimen name="ordinary_tab_font_size">20sp</dimen>
+    <dimen name="stock_image_padding">10dp</dimen>
+    <dimen name="stock_image_size">45dp</dimen>
+    <dimen name="stock_image_corner_rounding">12dp</dimen>
 </resources>

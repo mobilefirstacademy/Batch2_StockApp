@@ -57,10 +57,11 @@ fun StocksPage(color: Color, stocks: List<Stock>) {
         Column {
             SearchInput(stringResource(R.string.search_input_label))
             Tabs(tabs = listOf("Stocks", "Favourite"), 0)
-            StocksList(stocks)
+            StocksList(stocks, ::positionToColor)
         }
     }
 }
+fun positionToColor(index: Int): Int = if (index % 2 == 0) R.color.gray_secondary else R.color.white
 
 @Composable
 fun SearchInput(placeholder: String, value: String = "") {
@@ -137,18 +138,16 @@ enum class TabStyle(val fontSizeByID: Int, val fontColorByID: Int) {
 
 
 @Composable
-fun StocksList(stocks: List<Stock>) {
+fun StocksList(stocks: List<Stock>, posToColorRes: (Int) -> Int) {
     LazyColumn(
         Modifier.fillMaxWidth()
     ) {
         itemsIndexed(stocks) {index, stock ->
-            val color = positionToColor(index) // TODO: fix
+            val color = colorResource(posToColorRes(index))
             StockItem(stock, color)
         }
     }
 }
-
-fun positionToColor(index: Int): Color = if (index % 2 == 0) Color(0xFFF0F4F7) else Color.White
 
 @Composable
 fun StockItem(stock: Stock, backgroundColor: Color) {
@@ -158,24 +157,23 @@ fun StockItem(stock: Stock, backgroundColor: Color) {
             modifier = Modifier
                 .background(
                     color = backgroundColor,
-                    shape = RoundedCornerShape(15.dp)
+                    shape = RoundedCornerShape(dimensionResource(id = R.dimen.standard_padding))
                 )
                 .fillMaxWidth()
 
         ) {
             Row {
                 Image(
-
                     painter = painterResource(id = imageResource),
                     contentDescription = "searching icon",
                     modifier = Modifier
-                        .padding(10.dp)
-                        .size(45.dp)
-                        .clip(RoundedCornerShape(12.dp))
+                        .padding(dimensionResource(id = R.dimen.stock_image_padding))
+                        .size(dimensionResource(id = R.dimen.stock_image_size))
+                        .clip(RoundedCornerShape(dimensionResource(id = R.dimen.stock_image_corner_rounding)))
                 )
 
                 Column(
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.standard_padding))
                 ) {
                     Ticker(ticker, isFavourite)
                     CompanyName(name)
@@ -184,7 +182,7 @@ fun StockItem(stock: Stock, backgroundColor: Color) {
             Column (
                 modifier = Modifier.padding(10.dp)
             ) {
-                val diff = String.format("%.2f", currentPrice / purchasePrice)
+                val diff = String.format("%.2f", currentPrice / purchasePrice) // TODO: fix
                 val absoluteDiff = currentPrice - purchasePrice
                 Price(currentPrice, unitOfAccount)
                 Diff(diff, absoluteDiff, unitOfAccount)
