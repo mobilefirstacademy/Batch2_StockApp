@@ -24,18 +24,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.home.R
 import entities.UnitOfAccount
 import entities.Stock
 
 val defaultStocks = listOf(Stock(imageResource = R.drawable.refresh_icon))
+
+@Preview
+@Composable
+fun StockPagePreview() {
+    StocksPage(color = Color.White, stocks = listOf(Stock(imageResource = R.drawable.ic_launcher_background)))
+}
+
 @Composable
 fun StocksPage(color: Color, stocks: List<Stock>) {
     val padding = dimensionResource(id = R.dimen.standard_padding)
@@ -54,17 +64,20 @@ fun StocksPage(color: Color, stocks: List<Stock>) {
 
 @Composable
 fun SearchInput(placeholder: String, value: String = "") {
+    val width = dimensionResource(id = R.dimen.search_input_border_size)
     Row(
         modifier = Modifier.border(
-            width = 1.dp,
+            width = width,
             color = Color.Black,
             shape = CircleShape
         )
     ) {
+        val padding = dimensionResource(id = R.dimen.icon_search_padding)
+        val size = dimensionResource(id = R.dimen.icon_search_size)
         Image(
             modifier = Modifier
-                .padding(15.dp, 15.dp, 0.dp, 15.dp)
-                .size(25.dp),
+                .padding(start = padding, top = padding, end = padding)
+                .size(size),
             painter = painterResource(id = R.drawable.search),
             contentDescription = stringResource(R.string.searching_icon_content_description),
         )
@@ -89,31 +102,37 @@ fun SearchInput(placeholder: String, value: String = "") {
 @Composable
 fun Tabs(tabs: List<String>, currentIndex: Int) {
     Surface(color = Color.White){
-        val gap = 15.dp
+        val gap = dimensionResource(id = R.dimen.tabs_gap)
+        val space = dimensionResource(id = R.dimen.tabs_horizontal_arrangement)
         Row (
             verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.spacedBy(30.dp),
+            horizontalArrangement = Arrangement.spacedBy(space),
             modifier = Modifier
                 .padding(top = gap, bottom = gap)
         ) {
-            Tab(tabs[0], true)
-            Tab(tabs[1], false)
+            Tab(tabs[0], TabStyle.CURRENT)
+            Tab(tabs[1], TabStyle.ORDINARY)
         }
     }
 }
 
 @Composable
-fun RowScope.Tab(name: String, isCurrent: Boolean) {
+fun RowScope.Tab(name: String, tabStyle: TabStyle) {
     val weight = FontWeight.W900
-    val fontSize = if (isCurrent) 30F else 20F
-    val fontColor = if (isCurrent) Color.Black else Color(0xFFBABABA)
+    val fontSizeByID = tabStyle.fontSizeByID
+    val fontColorByID = tabStyle.fontColorByID
     Text(
         text = name,
         fontWeight = weight,
-        fontSize = TextUnit(fontSize, TextUnitType.Sp),
-        color = fontColor,
+        fontSize = dimensionResource(id = fontSizeByID).value.sp,
+        color = colorResource(id = fontColorByID),
         modifier = Modifier.alignByBaseline()
     )
+}
+
+enum class TabStyle(val fontSizeByID: Int, val fontColorByID: Int) {
+    CURRENT(R.dimen.current_tab_font_size, R.color.black),
+    ORDINARY(R.dimen.ordinary_tab_font_size, R.color.gray_primary)
 }
 
 
@@ -123,11 +142,13 @@ fun StocksList(stocks: List<Stock>) {
         Modifier.fillMaxWidth()
     ) {
         itemsIndexed(stocks) {index, stock ->
-            val color = if (index % 2 == 0) Color(0xFFF0F4F7) else Color.White
+            val color = positionToColor(index) // TODO: fix
             StockItem(stock, color)
         }
     }
 }
+
+fun positionToColor(index: Int): Color = if (index % 2 == 0) Color(0xFFF0F4F7) else Color.White
 
 @Composable
 fun StockItem(stock: Stock, backgroundColor: Color) {

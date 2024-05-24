@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="icon_search_padding">15dp</dimen>
+    <dimen name="standard_padding">15dp</dimen>
+    <dimen name="icon_search_size">25dp</dimen>
+    <dimen name="search_input_border_size">1.dp</dimen>
+    <dimen name="tabs_gap">15dp</dimen>
+    <dimen name="tabs_horizontal_arrangement">30dp</dimen>
+    <dimen name="current_tab_font_size">30sp</dimen>
+    <dimen name="ordinary_tab_font_size">20sp</dimen>
+</resources>
