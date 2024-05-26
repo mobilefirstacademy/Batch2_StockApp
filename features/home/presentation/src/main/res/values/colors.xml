@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray_primary">#FFBABABA</color>
     <color name="gray_secondary">#FFF0F4F7</color>
+    <color name="positive_margin">#FF24B25D</color>
+    <color name="negative_margin">#FFB22424</color>
 </resources>

@@ -43,7 +43,10 @@ val defaultStocks = listOf(Stock(imageResource = R.drawable.refresh_icon))
 @Preview
 @Composable
 fun StockPagePreview() {
-    StocksPage(color = Color.White, stocks = listOf(Stock(imageResource = R.drawable.ic_launcher_background)))
+    StocksPage(color = Color.White, stocks = listOf(
+        Stock("YNDX", "Yandex, LCC", UnitOfAccount.RUB,4709.6, 4764.6, false, R.drawable.ic_launcher_background),
+        Stock("AAPL", "Apple Inc.", UnitOfAccount.USD, 131.93, 131.81, true, R.drawable.ic_launcher_background),
+    ))
 }
 
 @Composable
@@ -56,7 +59,7 @@ fun StocksPage(color: Color, stocks: List<Stock>) {
     ) {
         Column {
             SearchInput(stringResource(R.string.search_input_label))
-            Tabs(tabs = listOf("Stocks", "Favourite"), 0)
+            Tabs(tabs = listOf("Stocks", "Favourite"))
             StocksList(stocks, ::positionToColor)
         }
     }
@@ -101,7 +104,7 @@ fun SearchInput(placeholder: String, value: String = "") {
 }
 
 @Composable
-fun Tabs(tabs: List<String>, currentIndex: Int) {
+fun Tabs(tabs: List<String>) {
     Surface(color = Color.White){
         val gap = dimensionResource(id = R.dimen.tabs_gap)
         val space = dimensionResource(id = R.dimen.tabs_horizontal_arrangement)
@@ -165,7 +168,7 @@ fun StockItem(stock: Stock, backgroundColor: Color) {
             Row {
                 Image(
                     painter = painterResource(id = imageResource),
-                    contentDescription = "searching icon",
+                    contentDescription = stringResource(R.string.searching_icon_description),
                     modifier = Modifier
                         .padding(dimensionResource(id = R.dimen.stock_image_padding))
                         .size(dimensionResource(id = R.dimen.stock_image_size))
@@ -180,12 +183,10 @@ fun StockItem(stock: Stock, backgroundColor: Color) {
                 }
             }
             Column (
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.standard_padding))
             ) {
-                val diff = String.format("%.2f", currentPrice / purchasePrice) // TODO: fix
-                val absoluteDiff = currentPrice - purchasePrice
                 Price(currentPrice, unitOfAccount)
-                Diff(diff, absoluteDiff, unitOfAccount)
+                CostDiff(currentPrice, purchasePrice, unitOfAccount)
             }
         }
     }
@@ -201,8 +202,8 @@ fun Ticker(ticker: String, isFavourite: Boolean) {
             painter = painterResource(id = if (isFavourite) R.drawable.star_on else R.drawable.star_off),
             contentDescription = "not favorite",
             modifier = Modifier
-                .padding(5.dp)
-                .size(16.dp)
+                .padding(dimensionResource(id = R.dimen.ticker_star_image_padding))
+                .size(dimensionResource(id = R.dimen.ticker_star_image_size))
         )
     }
 }
@@ -212,45 +213,30 @@ fun CompanyName(name: String) {
     Text(
         text = name,
         fontWeight = FontWeight.W600,
-        fontSize = TextUnit(10F, TextUnitType.Sp)
+        fontSize = dimensionResource(id = R.dimen.company_name_text_size).value.sp
     )
 }
 
 @Composable
 fun Price(price: Double, unitOfAccount: UnitOfAccount) {
-    val sign = when(unitOfAccount) {
-        UnitOfAccount.RUB -> "₽"
-        UnitOfAccount.USD -> "$"
-        UnitOfAccount.EUR -> "€"
-    }
-    Box(
-        contentAlignment = Alignment.BottomEnd,
-        modifier = Modifier.fillMaxWidth()
-    ){ Text(text = priceFormat(unitOfAccount, price)) }
-}
-
-fun priceFormat(unit: UnitOfAccount, count: Double): String {
-    val preUnit = when(unit) {
-        UnitOfAccount.USD -> "$"
-        else -> ""
-    }
-    val postUnit = when(unit) {
-        UnitOfAccount.RUB -> " ₽"
-        UnitOfAccount.EUR -> "€"
-        UnitOfAccount.USD -> ""
-        else -> ""
-    }
-    return preUnit + String.format("%.2f", count) + postUnit
-}
-@Composable
-fun Diff(diff: String, absoluteDiff: Double, unit: UnitOfAccount) {
-    val sign = if (absoluteDiff > 0) "+" else "-"
-    val fontColor = if (absoluteDiff > 0) Color(0xFF24B25D) else Color.Black
-    val absDiffFormatted: String = "$sign${priceFormat(unit, absoluteDiff)}"
     Box(
         contentAlignment = Alignment.BottomEnd,
         modifier = Modifier.fillMaxWidth()
     ){
-        Text(text = "$absDiffFormatted ($diff%)", color = fontColor)
+        Text(
+            text = priceFormat(price, unitOfAccount, false),
+            color = colorResource(id = R.color.black),
+        ) }
+}
+
+
+@Composable
+fun CostDiff(currentPrice: Double, purchasePrice: Double, unit: UnitOfAccount) {
+    val (text, fontColorById) = costDiffModel(currentPrice,purchasePrice,unit)
+    Box(
+        contentAlignment = Alignment.BottomEnd,
+        modifier = Modifier.fillMaxWidth()
+    ){
+        Text(text = text, color = colorResource(id = fontColorById))
     }
 }
