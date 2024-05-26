@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="icon_search_padding">15dp</dimen>
+    <dimen name="standard_padding">15dp</dimen>
+    <dimen name="icon_search_size">25dp</dimen>
+    <dimen name="search_input_border_size">1.dp</dimen>
+    <dimen name="tabs_gap">15dp</dimen>
+    <dimen name="tabs_horizontal_arrangement">30dp</dimen>
+    <dimen name="current_tab_font_size">30sp</dimen>
+    <dimen name="ordinary_tab_font_size">20sp</dimen>
+    <dimen name="stock_image_padding">10dp</dimen>
+    <dimen name="stock_image_size">45dp</dimen>
+    <dimen name="stock_image_corner_rounding">12dp</dimen>
+    <dimen name="ticker_star_image_size">13dp</dimen>
+    <dimen name="ticker_star_image_padding">5dp</dimen>
+    <dimen name="company_name_text_size">10sp</dimen>
+</resources>

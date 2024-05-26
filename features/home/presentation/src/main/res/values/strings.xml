@@ -1,4 +1,7 @@
 <resources>
     <string name="let_s_go">Let\'s GO!</string>
     <string name="your_name_hint">YOUR NAME</string>
+    <string name="searching_icon_content_description">searching icon</string>
+    <string name="search_input_label">Find company or ticker</string>
+    <string name="searching_icon_description">searching icon</string>
 </resources>

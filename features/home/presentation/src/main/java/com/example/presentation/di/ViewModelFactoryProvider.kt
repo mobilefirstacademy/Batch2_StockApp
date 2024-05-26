@@ -1,14 +1,12 @@
 package com.example.presentation.di
 
-import com.example.presentation.viewmodels.HomeViewModel
-import interactors.HomeInteractor
-import routing.TempRouter
+import com.example.presentation.viewmodels.StockViewModel
+import interactors.StocksInteractor
 
 class ViewModelFactoryProvider(
-    private val interactor: HomeInteractor,
-    private val router: TempRouter,
+    private val interactor: StocksInteractor
 ) {
-    fun getViewModelFactory(): HomeViewModel.Factory = HomeViewModel.Factory(router, interactor)
+    fun getViewModelFactory(): StockViewModel.Factory = StockViewModel.Factory(interactor)
 
     companion object {
         lateinit var INSTANCE: ViewModelFactoryProvider
