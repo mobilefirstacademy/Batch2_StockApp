@@ -28,16 +28,6 @@ class LetsGoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<TextView>(R.id.text).text = getString(R.string.lets_start, name)
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(name: String) =
-            LetsGoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(NAME, name)
-                }
-            }
-    }
 }
 
-private const val NAME = "param1"
+private const val NAME = "NAME"
