@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import com.example.letsgo.databinding.FragmentLetsGoBinding
 
 class LetsGoFragment : Fragment() {
     private var name: String? = null
+
+    private var _binding: FragmentLetsGoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +24,14 @@ class LetsGoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_lets_go, container, false)
+        _binding = FragmentLetsGoBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextView>(R.id.text).text = getString(R.string.lets_start, name)
+        binding.text.text = getString(R.string.lets_start, name)
     }
 }
 

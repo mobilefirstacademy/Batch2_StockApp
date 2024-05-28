@@ -4,33 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.MutableCreationExtras
+import androidx.navigation.findNavController
 import com.example.home.R
+import com.example.home.databinding.FragmentHomeBinding
 import com.example.presentation.di.ViewModelFactoryProvider
 import com.example.presentation.viewmodels.HomeViewModel
-import interactors.HomeInteractor
-import androidx.navigation.findNavController
 
 class HomeFragment : Fragment() {
     private var picId: Int? = null
     private var greeting: String? = null
 
-    private lateinit var greetingView: TextView
-    private lateinit var pictureView: ImageView
-    private lateinit var nameView: EditText
-    private lateinit var letsgoButton: Button
-    private lateinit var refreshTimeButton: ImageButton
-    private lateinit var timeLabel: TextView
-    // TODO: Почитайте про view binding и используйте его
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by lazy {
         // TODO: Почитайте про viewModels() делегат и используйте его
@@ -44,35 +32,34 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
+
         arguments?.let { args ->
             val (picId, greeting) = args.obtainHomeFragmentState()
             this.picId = picId
             this.greeting = greeting
         }
-        return inflater.inflate(R.layout.fragment_home, container, false)
-
-        //wejf;lskjf;alskdfj;l
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(view) {
-            initViews()
-
-            greetingView.text = greeting ?: return
-            pictureView.setImageResource(picId ?: com.google.android.material.R.drawable.mtrl_ic_error)
+        with(binding) {
+            tvGreeting.text = greeting ?: return
+            pic.setImageResource(picId ?: com.google.android.material.R.drawable.mtrl_ic_error)
             refreshTimeButton.setOnClickListener {
                 viewModel.refreshTime()
             }
             letsgoButton.setOnClickListener {
-                val name = nameView.text.toString().takeIf { it != "" }
+                val name = name.text.toString().takeIf { it != "" }
                 if (name.isNullOrEmpty()) {
-                    findNavController().navigate(R.id.action_homeFragment_to_letsgo_nav_graph)
+                    view.findNavController().navigate(R.id.action_homeFragment_to_letsgo_nav_graph)
                 } else {
                     val bundle = Bundle()
                     bundle.putString(NAME, name)
-                    findNavController().navigate(R.id.action_homeFragment_to_letsgo_nav_graph, bundle)
+                    view.findNavController().navigate(R.id.action_homeFragment_to_letsgo_nav_graph, bundle)
                 }
             }
         }
@@ -81,7 +68,7 @@ class HomeFragment : Fragment() {
             result.onFailure { ex ->
                 Toast.makeText(requireContext(), ex.message, Toast.LENGTH_LONG).show()
             }.onSuccess { time ->
-                timeLabel.text = time.timeLine
+                binding.timeLabel.text = time.timeLine
             }
         }
     }
@@ -93,6 +80,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         savedInstanceState?.let { state ->
@@ -102,14 +94,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun View.initViews() {
-        greetingView = findViewById(R.id.greeting)
-        pictureView = findViewById(R.id.pic)
-        nameView = findViewById(R.id.name)
-        letsgoButton = findViewById(R.id.letsgo_button)
-        refreshTimeButton = findViewById(R.id.refresh_time_button)
-        timeLabel = findViewById(R.id.time_label)
-    }
 
     companion object {
         @JvmStatic
