@@ -3,13 +3,13 @@ package com.example.cleanarchitectureshowcase
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.presentation.di.ViewModelFactoryProvider
+import com.example.presentation.di.MainViewModel
 import com.example.presentation.ui.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel: ViewModelFactoryProvider by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

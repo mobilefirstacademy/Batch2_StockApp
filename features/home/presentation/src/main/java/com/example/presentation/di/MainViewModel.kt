@@ -7,7 +7,7 @@ import routing.TempRouter
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModelFactoryProvider @Inject constructor(
+class MainViewModel @Inject constructor(
     private val interactor: HomeInteractor,
     private val router: TempRouter,
 ) : ViewModel()
