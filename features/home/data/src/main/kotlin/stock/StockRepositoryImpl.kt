@@ -2,7 +2,6 @@ package stock
 
 import android.util.Log
 import com.example.data.stock.StockProvider
-import com.example.data.stock.apiKey
 import entities.StockModel
 import repositories.StockRepository
 import java.io.IOException
@@ -13,6 +12,7 @@ class StockRepositoryImpl : StockRepository {
         try {
             thread{
                 val response = StockProvider.stockApi.getStockList(apiKey).execute()
+                callback(response.body())
             }
         } catch (e: IOException) {
             Log.e("Stock", "Ошибка при выполнении запроса: ${e.message}")

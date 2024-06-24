@@ -3,10 +3,12 @@ package interactors
 import entities.Time
 import exceptions.HomeException
 import exceptions.Reason
+import repositories.StockRepository
 import repositories.TimeRepository
 import repositories.UserAccessRepository
 
 class HomeInteractor(
+    private val stockRepository: StockRepository,
     private val accessRepository: UserAccessRepository,
     private val timeRepository: TimeRepository,
 ) {

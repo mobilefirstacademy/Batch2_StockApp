@@ -9,6 +9,7 @@ import com.example.presentation.di.ViewModelFactoryProvider
 import interactors.HomeInteractor
 import repositories.TimeRepository
 import repositories.UserAccessRepository
+import stock.StockRepositoryImpl
 import time.TimeRepositoryImpl
 import time.TimeService
 
@@ -38,7 +39,9 @@ class MainActivity : AppCompatActivity() {
         val timeService = TimeService()
         val accessRepository: UserAccessRepository = AccessRepositoryImpl()
         val timeRepository: TimeRepository = TimeRepositoryImpl(timeService)
+        val stockRepository = StockRepositoryImpl()
         val interactor = HomeInteractor(
+            stockRepository,
             accessRepository,
             timeRepository
         )

@@ -1,5 +1,7 @@
 package com.example.data.stock
 
+import stock.StockSearchingApi
+
 object StockProvider {
     private const val BASE_URL = "https://financialmodelingprep.com/api/v3/"
     val stockApi: StockSearchingApi

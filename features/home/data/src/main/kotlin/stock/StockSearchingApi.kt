@@ -1,4 +1,4 @@
-package com.example.data.stock
+package stock
 
 import entities.StockModel
 import retrofit2.Call
