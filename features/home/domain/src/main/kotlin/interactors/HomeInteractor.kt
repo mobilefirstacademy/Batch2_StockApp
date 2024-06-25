@@ -1,5 +1,6 @@
 package interactors
 
+import entities.StockModel
 import entities.Time
 import exceptions.HomeException
 import exceptions.Reason
@@ -16,5 +17,13 @@ class HomeInteractor(
         if (!accessRepository.enoughMoneyOnBalance()) throw HomeException(Reason.TOO_FEW_MONEY_ON_BALANCE)
         if (!accessRepository.countrySupportsTimeRefresh()) throw HomeException(Reason.COUNTRY_RESTRICTIONS)
         Time(timeRepository.getUnixTime())
+    }
+    fun onStockSearchRequest(): Result<List<StockModel>> = runCatching {
+        // TODO: exception
+        var result: List<StockModel>? = null
+        stockRepository.filterStocksByQuery {
+            result = it
+        }
+        result!!
     }
 }
